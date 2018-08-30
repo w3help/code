@@ -1,0 +1,206 @@
+stderr: 
+Traceback (most recent call last):
+  File "/var/lib/ambari-agent/cache/common-services/HIVE/0.12.0.2.0/package/scripts/hive_metastore.py", line 203, in <module>
+    HiveMetastore().execute()
+  File "/usr/lib/ambari-agent/lib/resource_management/libraries/script/script.py", line 375, in execute
+    method(env)
+  File "/usr/lib/ambari-agent/lib/resource_management/libraries/script/script.py", line 978, in restart
+    self.start(env, upgrade_type=upgrade_type)
+  File "/var/lib/ambari-agent/cache/common-services/HIVE/0.12.0.2.0/package/scripts/hive_metastore.py", line 56, in start
+    create_metastore_schema()
+  File "/var/lib/ambari-agent/cache/common-services/HIVE/0.12.0.2.0/package/scripts/hive.py", line 417, in create_metastore_schema
+    user = params.hive_user
+  File "/usr/lib/ambari-agent/lib/resource_management/core/base.py", line 166, in __init__
+    self.env.run()
+  File "/usr/lib/ambari-agent/lib/resource_management/core/environment.py", line 160, in run
+    self.run_action(resource, action)
+  File "/usr/lib/ambari-agent/lib/resource_management/core/environment.py", line 124, in run_action
+    provider_action()
+  File "/usr/lib/ambari-agent/lib/resource_management/core/providers/system.py", line 262, in action_run
+    tries=self.resource.tries, try_sleep=self.resource.try_sleep)
+  File "/usr/lib/ambari-agent/lib/resource_management/core/shell.py", line 72, in inner
+    result = function(command, **kwargs)
+  File "/usr/lib/ambari-agent/lib/resource_management/core/shell.py", line 102, in checked_call
+    tries=tries, try_sleep=try_sleep, timeout_kill_strategy=timeout_kill_strategy)
+  File "/usr/lib/ambari-agent/lib/resource_management/core/shell.py", line 150, in _call_wrapper
+    result = _call(command, **kwargs_copy)
+  File "/usr/lib/ambari-agent/lib/resource_management/core/shell.py", line 303, in _call
+    raise ExecutionFailed(err_msg, code, out, err)
+resource_management.core.exceptions.ExecutionFailed: Execution of 'export HIVE_CONF_DIR=/usr/hdp/current/hive-metastore/conf/conf.server ; /usr/hdp/current/hive-server2-hive2/bin/schematool -initSchema -dbType mysql -userName root -passWord [PROTECTED] -verbose' returned 1. Metastore connection URL:	 jdbc:mysql://sandbox-hdp.hortonworks.com/hive?createDatabaseIfNotExist=true
+Metastore Connection Driver :	 com.mysql.jdbc.Driver
+Metastore connection User:	 root
+Thu Aug 30 14:16:56 UTC 2018 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+org.apache.hadoop.hive.metastore.HiveMetaException: Failed to get schema version.
+Underlying cause: java.sql.SQLException : Access denied for user 'root'@'sandbox-hdp.hortonworks.com' (using password: YES)
+SQL Error code: 1045
+org.apache.hadoop.hive.metastore.HiveMetaException: Failed to get schema version.
+	at org.apache.hive.beeline.HiveSchemaHelper.getConnectionToMetastore(HiveSchemaHelper.java:80)
+	at org.apache.hive.beeline.HiveSchemaTool.getConnectionToMetastore(HiveSchemaTool.java:133)
+	at org.apache.hive.beeline.HiveSchemaTool.testConnectionToMetastore(HiveSchemaTool.java:187)
+	at org.apache.hive.beeline.HiveSchemaTool.doInit(HiveSchemaTool.java:291)
+	at org.apache.hive.beeline.HiveSchemaTool.doInit(HiveSchemaTool.java:277)
+	at org.apache.hive.beeline.HiveSchemaTool.main(HiveSchemaTool.java:526)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:233)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:148)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'sandbox-hdp.hortonworks.com' (using password: YES)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:873)
+	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1710)
+	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1226)
+	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2188)
+	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2219)
+	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2014)
+	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:776)
+	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:386)
+	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:330)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:247)
+	at org.apache.hive.beeline.HiveSchemaHelper.getConnectionToMetastore(HiveSchemaHelper.java:76)
+	... 11 more
+*** schemaTool failed ***
+ stdout:
+2018-08-30 14:16:41,921 - Stack Feature Version Info: Cluster Stack=2.6, Command Stack=None, Command Version=2.6.5.0-292 -> 2.6.5.0-292
+2018-08-30 14:16:41,953 - Using hadoop conf dir: /usr/hdp/2.6.5.0-292/hadoop/conf
+2018-08-30 14:16:42,272 - Stack Feature Version Info: Cluster Stack=2.6, Command Stack=None, Command Version=2.6.5.0-292 -> 2.6.5.0-292
+2018-08-30 14:16:42,283 - Using hadoop conf dir: /usr/hdp/2.6.5.0-292/hadoop/conf
+2018-08-30 14:16:42,286 - Group['livy'] {}
+2018-08-30 14:16:42,288 - Group['spark'] {}
+2018-08-30 14:16:42,288 - Group['ranger'] {}
+2018-08-30 14:16:42,288 - Group['hdfs'] {}
+2018-08-30 14:16:42,289 - Group['zeppelin'] {}
+2018-08-30 14:16:42,289 - Group['hadoop'] {}
+2018-08-30 14:16:42,289 - Group['users'] {}
+2018-08-30 14:16:42,289 - Group['knox'] {}
+2018-08-30 14:16:42,291 - User['hive'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,292 - User['storm'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,294 - User['zookeeper'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,296 - User['superset'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,297 - User['infra-solr'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,300 - User['oozie'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'users'], 'uid': None}
+2018-08-30 14:16:42,302 - User['atlas'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,304 - User['falcon'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'users'], 'uid': None}
+2018-08-30 14:16:42,305 - User['ranger'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'ranger'], 'uid': None}
+2018-08-30 14:16:42,307 - User['tez'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'users'], 'uid': None}
+2018-08-30 14:16:42,308 - User['zeppelin'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'zeppelin', u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,310 - User['livy'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,312 - User['druid'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,313 - User['spark'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,316 - User['ambari-qa'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'users'], 'uid': None}
+2018-08-30 14:16:42,318 - User['flume'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,319 - User['kafka'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,321 - User['hdfs'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': ['hdfs'], 'uid': None}
+2018-08-30 14:16:42,323 - User['sqoop'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,324 - User['yarn'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,326 - User['mapred'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,327 - User['hbase'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,329 - User['knox'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,330 - User['hcat'] {'gid': 'hadoop', 'fetch_nonlocal_groups': True, 'groups': [u'hadoop'], 'uid': None}
+2018-08-30 14:16:42,332 - File['/var/lib/ambari-agent/tmp/changeUid.sh'] {'content': StaticFile('changeToSecureUid.sh'), 'mode': 0555}
+2018-08-30 14:16:42,335 - Execute['/var/lib/ambari-agent/tmp/changeUid.sh ambari-qa /tmp/hadoop-ambari-qa,/tmp/hsperfdata_ambari-qa,/home/ambari-qa,/tmp/ambari-qa,/tmp/sqoop-ambari-qa 0'] {'not_if': '(test $(id -u ambari-qa) -gt 1000) || (false)'}
+2018-08-30 14:16:42,339 - Skipping Execute['/var/lib/ambari-agent/tmp/changeUid.sh ambari-qa /tmp/hadoop-ambari-qa,/tmp/hsperfdata_ambari-qa,/home/ambari-qa,/tmp/ambari-qa,/tmp/sqoop-ambari-qa 0'] due to not_if
+2018-08-30 14:16:42,340 - Directory['/tmp/hbase-hbase'] {'owner': 'hbase', 'create_parents': True, 'mode': 0775, 'cd_access': 'a'}
+2018-08-30 14:16:42,341 - File['/var/lib/ambari-agent/tmp/changeUid.sh'] {'content': StaticFile('changeToSecureUid.sh'), 'mode': 0555}
+2018-08-30 14:16:42,343 - File['/var/lib/ambari-agent/tmp/changeUid.sh'] {'content': StaticFile('changeToSecureUid.sh'), 'mode': 0555}
+2018-08-30 14:16:42,345 - call['/var/lib/ambari-agent/tmp/changeUid.sh hbase'] {}
+2018-08-30 14:16:42,352 - call returned (0, '1014')
+2018-08-30 14:16:42,352 - Execute['/var/lib/ambari-agent/tmp/changeUid.sh hbase /home/hbase,/tmp/hbase,/usr/bin/hbase,/var/log/hbase,/tmp/hbase-hbase 1014'] {'not_if': '(test $(id -u hbase) -gt 1000) || (false)'}
+2018-08-30 14:16:42,356 - Skipping Execute['/var/lib/ambari-agent/tmp/changeUid.sh hbase /home/hbase,/tmp/hbase,/usr/bin/hbase,/var/log/hbase,/tmp/hbase-hbase 1014'] due to not_if
+2018-08-30 14:16:42,357 - Group['hdfs'] {}
+2018-08-30 14:16:42,357 - User['hdfs'] {'fetch_nonlocal_groups': True, 'groups': ['hdfs', u'hdfs']}
+2018-08-30 14:16:42,358 - FS Type: 
+2018-08-30 14:16:42,358 - Directory['/etc/hadoop'] {'mode': 0755}
+2018-08-30 14:16:42,385 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/hadoop-env.sh'] {'content': InlineTemplate(...), 'owner': 'hdfs', 'group': 'hadoop'}
+2018-08-30 14:16:42,386 - Directory['/var/lib/ambari-agent/tmp/hadoop_java_io_tmpdir'] {'owner': 'hdfs', 'group': 'hadoop', 'mode': 01777}
+2018-08-30 14:16:42,406 - Execute[('setenforce', '0')] {'not_if': '(! which getenforce ) || (which getenforce && getenforce | grep -q Disabled)', 'sudo': True, 'only_if': 'test -f /selinux/enforce'}
+2018-08-30 14:16:42,410 - Skipping Execute[('setenforce', '0')] due to not_if
+2018-08-30 14:16:42,410 - Directory['/var/log/hadoop'] {'owner': 'root', 'create_parents': True, 'group': 'hadoop', 'mode': 0775, 'cd_access': 'a'}
+2018-08-30 14:16:42,413 - Directory['/var/run/hadoop'] {'owner': 'root', 'create_parents': True, 'group': 'root', 'cd_access': 'a'}
+2018-08-30 14:16:42,414 - Directory['/tmp/hadoop-hdfs'] {'owner': 'hdfs', 'create_parents': True, 'cd_access': 'a'}
+2018-08-30 14:16:42,420 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/commons-logging.properties'] {'content': Template('commons-logging.properties.j2'), 'owner': 'hdfs'}
+2018-08-30 14:16:42,423 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/health_check'] {'content': Template('health_check.j2'), 'owner': 'hdfs'}
+2018-08-30 14:16:42,435 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/log4j.properties'] {'content': InlineTemplate(...), 'owner': 'hdfs', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:42,452 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/hadoop-metrics2.properties'] {'content': InlineTemplate(...), 'owner': 'hdfs', 'group': 'hadoop'}
+2018-08-30 14:16:42,453 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/task-log4j.properties'] {'content': StaticFile('task-log4j.properties'), 'mode': 0755}
+2018-08-30 14:16:42,454 - File['/usr/hdp/2.6.5.0-292/hadoop/conf/configuration.xsl'] {'owner': 'hdfs', 'group': 'hadoop'}
+2018-08-30 14:16:42,460 - File['/etc/hadoop/conf/topology_mappings.data'] {'owner': 'hdfs', 'content': Template('topology_mappings.data.j2'), 'only_if': 'test -d /etc/hadoop/conf', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:42,464 - File['/etc/hadoop/conf/topology_script.py'] {'content': StaticFile('topology_script.py'), 'only_if': 'test -d /etc/hadoop/conf', 'mode': 0755}
+2018-08-30 14:16:42,995 - MariaDB RedHat Support: false
+2018-08-30 14:16:43,001 - Using hadoop conf dir: /usr/hdp/2.6.5.0-292/hadoop/conf
+2018-08-30 14:16:43,024 - call['ambari-python-wrap /usr/bin/hdp-select status hive-server2'] {'timeout': 20}
+2018-08-30 14:16:43,054 - call returned (0, 'hive-server2 - 2.6.5.0-292')
+2018-08-30 14:16:43,056 - Stack Feature Version Info: Cluster Stack=2.6, Command Stack=None, Command Version=2.6.5.0-292 -> 2.6.5.0-292
+2018-08-30 14:16:43,116 - File['/var/lib/ambari-agent/cred/lib/CredentialUtil.jar'] {'content': DownloadSource('http://sandbox-hdp.hortonworks.com:8080/resources/CredentialUtil.jar'), 'mode': 0755}
+2018-08-30 14:16:43,118 - Not downloading the file from http://sandbox-hdp.hortonworks.com:8080/resources/CredentialUtil.jar, because /var/lib/ambari-agent/tmp/CredentialUtil.jar already exists
+2018-08-30 14:16:43,118 - checked_call[('/usr/lib/jvm/java/bin/java', '-cp', u'/var/lib/ambari-agent/cred/lib/*', 'org.apache.ambari.server.credentialapi.CredentialUtil', 'get', 'javax.jdo.option.ConnectionPassword', '-provider', u'jceks://file/var/lib/ambari-agent/cred/conf/hive_metastore/hive-site.jceks')] {}
+2018-08-30 14:16:43,915 - checked_call returned (0, 'SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".\nSLF4J: Defaulting to no-operation (NOP) logger implementation\nSLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.\nAug 30, 2018 2:16:43 PM org.apache.hadoop.util.NativeCodeLoader <clinit>\nWARNING: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\nhortonworks1')
+2018-08-30 14:16:43,937 - call['ambari-sudo.sh su hive -l -s /bin/bash -c 'cat /var/run/hive/hive.pid 1>/tmp/tmp5vo84o 2>/tmp/tmponWZoY''] {'quiet': False}
+2018-08-30 14:16:43,982 - call returned (1, '')
+2018-08-30 14:16:43,982 - Execution of 'cat /var/run/hive/hive.pid 1>/tmp/tmp5vo84o 2>/tmp/tmponWZoY' returned 1. cat: /var/run/hive/hive.pid: No such file or directory
+
+2018-08-30 14:16:43,983 - Execute['ambari-sudo.sh kill '] {'not_if': '! (ls /var/run/hive/hive.pid >/dev/null 2>&1 && ps -p  >/dev/null 2>&1)'}
+2018-08-30 14:16:43,987 - Skipping Execute['ambari-sudo.sh kill '] due to not_if
+2018-08-30 14:16:43,988 - Execute['ambari-sudo.sh kill -9 '] {'not_if': '! (ls /var/run/hive/hive.pid >/dev/null 2>&1 && ps -p  >/dev/null 2>&1) || ( sleep 5 && ! (ls /var/run/hive/hive.pid >/dev/null 2>&1 && ps -p  >/dev/null 2>&1) )', 'ignore_failures': True}
+2018-08-30 14:16:43,992 - Skipping Execute['ambari-sudo.sh kill -9 '] due to not_if
+2018-08-30 14:16:43,993 - Execute['! (ls /var/run/hive/hive.pid >/dev/null 2>&1 && ps -p  >/dev/null 2>&1)'] {'tries': 20, 'try_sleep': 3}
+2018-08-30 14:16:43,998 - File['/var/run/hive/hive.pid'] {'action': ['delete']}
+2018-08-30 14:16:43,999 - Pid file /var/run/hive/hive.pid is empty or does not exist
+2018-08-30 14:16:44,007 - Stack Feature Version Info: Cluster Stack=2.6, Command Stack=None, Command Version=2.6.5.0-292 -> 2.6.5.0-292
+2018-08-30 14:16:44,012 - Directory['/etc/hive'] {'mode': 0755}
+2018-08-30 14:16:44,013 - Directories to fill with configs: [u'/usr/hdp/current/hive-metastore/conf', u'/usr/hdp/current/hive-metastore/conf/conf.server']
+2018-08-30 14:16:44,014 - Directory['/etc/hive/2.6.5.0-292/0'] {'owner': 'hive', 'group': 'hadoop', 'create_parents': True, 'mode': 0755}
+2018-08-30 14:16:44,014 - XmlConfig['mapred-site.xml'] {'group': 'hadoop', 'conf_dir': '/etc/hive/2.6.5.0-292/0', 'mode': 0644, 'configuration_attributes': {}, 'owner': 'hive', 'configurations': ...}
+2018-08-30 14:16:44,032 - Generating config: /etc/hive/2.6.5.0-292/0/mapred-site.xml
+2018-08-30 14:16:44,033 - File['/etc/hive/2.6.5.0-292/0/mapred-site.xml'] {'owner': 'hive', 'content': InlineTemplate(...), 'group': 'hadoop', 'mode': 0644, 'encoding': 'UTF-8'}
+2018-08-30 14:16:44,102 - File['/etc/hive/2.6.5.0-292/0/hive-default.xml.template'] {'owner': 'hive', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,103 - File['/etc/hive/2.6.5.0-292/0/hive-env.sh.template'] {'owner': 'hive', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,106 - File['/etc/hive/2.6.5.0-292/0/hive-exec-log4j.properties'] {'content': InlineTemplate(...), 'owner': 'hive', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,110 - File['/etc/hive/2.6.5.0-292/0/hive-log4j.properties'] {'content': InlineTemplate(...), 'owner': 'hive', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,112 - File['/etc/hive/2.6.5.0-292/0/parquet-logging.properties'] {'content': ..., 'owner': 'hive', 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,113 - Directory['/etc/hive/2.6.5.0-292/0/conf.server'] {'owner': 'hive', 'group': 'hadoop', 'create_parents': True, 'mode': 0700}
+2018-08-30 14:16:44,113 - XmlConfig['mapred-site.xml'] {'group': 'hadoop', 'conf_dir': '/etc/hive/2.6.5.0-292/0/conf.server', 'mode': 0600, 'configuration_attributes': {}, 'owner': 'hive', 'configurations': ...}
+2018-08-30 14:16:44,127 - Generating config: /etc/hive/2.6.5.0-292/0/conf.server/mapred-site.xml
+2018-08-30 14:16:44,127 - File['/etc/hive/2.6.5.0-292/0/conf.server/mapred-site.xml'] {'owner': 'hive', 'content': InlineTemplate(...), 'group': 'hadoop', 'mode': 0600, 'encoding': 'UTF-8'}
+2018-08-30 14:16:44,201 - File['/etc/hive/2.6.5.0-292/0/conf.server/hive-default.xml.template'] {'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,201 - File['/etc/hive/2.6.5.0-292/0/conf.server/hive-env.sh.template'] {'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,205 - File['/etc/hive/2.6.5.0-292/0/conf.server/hive-exec-log4j.properties'] {'content': InlineTemplate(...), 'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,210 - File['/etc/hive/2.6.5.0-292/0/conf.server/hive-log4j.properties'] {'content': InlineTemplate(...), 'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,211 - File['/etc/hive/2.6.5.0-292/0/conf.server/parquet-logging.properties'] {'content': ..., 'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,211 - File['/usr/hdp/current/hive-metastore/conf/conf.server/hive-site.jceks'] {'content': StaticFile('/var/lib/ambari-agent/cred/conf/hive_metastore/hive-site.jceks'), 'owner': 'hive', 'group': 'hadoop', 'mode': 0640}
+2018-08-30 14:16:44,213 - Writing File['/usr/hdp/current/hive-metastore/conf/conf.server/hive-site.jceks'] because contents don't match
+2018-08-30 14:16:44,214 - XmlConfig['hive-site.xml'] {'group': 'hadoop', 'conf_dir': '/usr/hdp/current/hive-metastore/conf/conf.server', 'mode': 0600, 'configuration_attributes': {u'hidden': {u'javax.jdo.option.ConnectionPassword': u'HIVE_CLIENT,WEBHCAT_SERVER,HCAT,CONFIG_DOWNLOAD'}}, 'owner': 'hive', 'configurations': ...}
+2018-08-30 14:16:44,228 - Generating config: /usr/hdp/current/hive-metastore/conf/conf.server/hive-site.xml
+2018-08-30 14:16:44,228 - File['/usr/hdp/current/hive-metastore/conf/conf.server/hive-site.xml'] {'owner': 'hive', 'content': InlineTemplate(...), 'group': 'hadoop', 'mode': 0600, 'encoding': 'UTF-8'}
+2018-08-30 14:16:44,458 - Generating Atlas Hook config file /usr/hdp/current/hive-metastore/conf/conf.server/atlas-application.properties
+2018-08-30 14:16:44,458 - PropertiesFile['/usr/hdp/current/hive-metastore/conf/conf.server/atlas-application.properties'] {'owner': 'hive', 'group': 'hadoop', 'mode': 0644, 'properties': ...}
+2018-08-30 14:16:44,464 - Generating properties file: /usr/hdp/current/hive-metastore/conf/conf.server/atlas-application.properties
+2018-08-30 14:16:44,465 - File['/usr/hdp/current/hive-metastore/conf/conf.server/atlas-application.properties'] {'owner': 'hive', 'content': InlineTemplate(...), 'group': 'hadoop', 'mode': 0644}
+2018-08-30 14:16:44,488 - Writing File['/usr/hdp/current/hive-metastore/conf/conf.server/atlas-application.properties'] because contents don't match
+2018-08-30 14:16:44,489 - XmlConfig['hivemetastore-site.xml'] {'group': 'hadoop', 'conf_dir': '/usr/hdp/current/hive-metastore/conf/conf.server', 'mode': 0600, 'configuration_attributes': {}, 'owner': 'hive', 'configurations': {u'hive.service.metrics.hadoop2.component': u'hivemetastore', u'hive.metastore.metrics.enabled': u'true', u'hive.service.metrics.file.location': u'/var/log/hive/hivemetastore-report.json', u'hive.service.metrics.reporter': u'JSON_FILE, JMX, HADOOP2'}}
+2018-08-30 14:16:44,503 - Generating config: /usr/hdp/current/hive-metastore/conf/conf.server/hivemetastore-site.xml
+2018-08-30 14:16:44,503 - File['/usr/hdp/current/hive-metastore/conf/conf.server/hivemetastore-site.xml'] {'owner': 'hive', 'content': InlineTemplate(...), 'group': 'hadoop', 'mode': 0600, 'encoding': 'UTF-8'}
+2018-08-30 14:16:44,516 - File['/usr/hdp/current/hive-metastore/conf/conf.server/hive-env.sh'] {'content': InlineTemplate(...), 'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,517 - Directory['/etc/security/limits.d'] {'owner': 'root', 'create_parents': True, 'group': 'root'}
+2018-08-30 14:16:44,521 - File['/etc/security/limits.d/hive.conf'] {'content': Template('hive.conf.j2'), 'owner': 'root', 'group': 'root', 'mode': 0644}
+2018-08-30 14:16:44,522 - File['/usr/lib/ambari-agent/DBConnectionVerification.jar'] {'content': DownloadSource('http://sandbox-hdp.hortonworks.com:8080/resources/DBConnectionVerification.jar'), 'mode': 0644}
+2018-08-30 14:16:44,523 - Not downloading the file from http://sandbox-hdp.hortonworks.com:8080/resources/DBConnectionVerification.jar, because /var/lib/ambari-agent/tmp/DBConnectionVerification.jar already exists
+2018-08-30 14:16:44,529 - File['/usr/hdp/current/hive-metastore/conf/conf.server/hadoop-metrics2-hivemetastore.properties'] {'content': Template('hadoop-metrics2-hivemetastore.properties.j2'), 'owner': 'hive', 'group': 'hadoop', 'mode': 0600}
+2018-08-30 14:16:44,531 - File['/var/lib/ambari-agent/tmp/start_metastore_script'] {'content': StaticFile('startMetastore.sh'), 'mode': 0755}
+2018-08-30 14:16:44,533 - Directory['/tmp/hive'] {'owner': 'hive', 'create_parents': True, 'mode': 0777}
+2018-08-30 14:16:44,533 - Directory['/var/run/hive'] {'owner': 'hive', 'create_parents': True, 'group': 'hadoop', 'mode': 0755, 'cd_access': 'a'}
+2018-08-30 14:16:44,534 - Directory['/var/log/hive'] {'owner': 'hive', 'create_parents': True, 'group': 'hadoop', 'mode': 0755, 'cd_access': 'a'}
+2018-08-30 14:16:44,535 - Directory['/var/lib/hive'] {'owner': 'hive', 'create_parents': True, 'group': 'hadoop', 'mode': 0755, 'cd_access': 'a'}
+2018-08-30 14:16:44,536 - Execute['export HIVE_CONF_DIR=/usr/hdp/current/hive-metastore/conf/conf.server ; /usr/hdp/current/hive-server2-hive2/bin/schematool -initSchema -dbType mysql -userName root -passWord [PROTECTED] -verbose'] {'not_if': "ambari-sudo.sh su hive -l -s /bin/bash -c 'export HIVE_CONF_DIR=/usr/hdp/current/hive-metastore/conf/conf.server ; /usr/hdp/current/hive-server2-hive2/bin/schematool -info -dbType mysql -userName root -passWord [PROTECTED] -verbose'", 'user': 'hive'}
+
+Command failed after 1 tries
